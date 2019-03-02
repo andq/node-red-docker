@@ -2,8 +2,9 @@ ARG NODE_VERSION=8-slim
 FROM arm32v7/node:${NODE_VERSION}
 
 # add support for gpio library
-RUN apt-get update
-RUN apt-get install -y python python-pip
+RUN apt-get update && apt-get -y install \
+    python python-pip \
+    && rm -rf /var/lib/apt/lists/*
 RUN python -m pip install RPi.GPIO
 
 # Home directory for Node-RED application source code.
